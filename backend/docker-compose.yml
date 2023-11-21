@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  todo_db:
+    image: mysql:latest
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: todo_db
+    volumes:
+      - todo-db-data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - "8080:80"
+    environment:
+      PMA_HOST: todo_db
+      PMA_USER: root
+      PMA_PASSWORD: password
+    depends_on:
+      - todo_db
+
+  server:
+    container_name: nestjs_server
+    build: .
+    environment:
+      - DATABASE_HOST=todo_db
+      - DATABASE_USER=root
+      - DATABASE_PASSWORD=password
+      - DATABASE_NAME=todo_db
+    volumes:
+      - .:/usr/src/app
+    depends_on:
+      - todo_db
+    ports:
+      - "8000:8000"
+    command: yarn start:dev
+    restart: on-failure
+  
+volumes:
+  todo-db-data:
