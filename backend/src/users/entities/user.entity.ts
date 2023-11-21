@@ -20,6 +20,6 @@ export class User {
   @Column({ unique: true })
   email: string;
 
-  @Column({ type: 'timestamp' })
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   created_date: Date;
 }

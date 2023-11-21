@@ -17,6 +17,6 @@ export class Task {
   @Column()
   is_completed: boolean;
 
-  @Column({ type: 'timestamp' })
-  created_at: Date;
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  created_date: Date;
 }
