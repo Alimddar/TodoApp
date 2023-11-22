@@ -6,6 +6,9 @@ import { TasksModule } from './tasks/tasks.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './users/entities/user.entity';
 import { Task } from './tasks/entities/task.entity';
+import { ConfigModule } from '@nestjs/config';
+import { MailService } from './mail/mail.service';
+
 @Module({
   imports: [
     UsersModule,
@@ -20,8 +23,11 @@ import { Task } from './tasks/entities/task.entity';
       entities: [User, Task],
       synchronize: true,
     }),
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, MailService],
 })
 export class AppModule {}
