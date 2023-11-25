@@ -4,10 +4,7 @@ import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 export class Task {
   @PrimaryGeneratedColumn()
   id: number;
-
-  @Column()
-  user_id: number;
-
+  
   @Column()
   title: string;
 
@@ -15,8 +12,20 @@ export class Task {
   description: string;
 
   @Column()
-  is_completed: boolean;
+  priority: string;
+
+  @Column()
+  status: boolean;
+
+  @Column()
+  dueDate: Date;
+
+  @Column()
+  user_id: number;
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-  created_date: Date;
+  created_at: Date;
+
+  @Column()
+  updated_at: Date;
 }
