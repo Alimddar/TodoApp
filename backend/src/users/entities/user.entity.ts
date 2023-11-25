@@ -5,12 +5,6 @@ export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
-  name: string;
-
-  @Column()
-  surname: string;
-
   @Column({ unique: true })
   username: string;
 
@@ -21,5 +15,8 @@ export class User {
   email: string;
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-  created_date: Date;
+  created_at: Date;
+
+  @Column()
+  updated_at: Date;
 }
